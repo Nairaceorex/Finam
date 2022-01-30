@@ -10,18 +10,16 @@ class TableAreaState extends State<TableArea>{
     return DataTable(
         columns: [
           DataColumn(label: Text("Name")),
-          DataColumn(label: Text("Number")),
+
           DataColumn(label: Text("Sum")),
         ],
         rows: [
           DataRow(cells: [
             DataCell(Text("Tinkoff")),
-            DataCell(Text("1243235")),
             DataCell(Text("10000")),
           ]),
           DataRow(cells: [
             DataCell(Text("Alpha")),
-            DataCell(Text("086676")),
             DataCell(Text("354")),
           ]),
 

@@ -22,8 +22,6 @@ class TableAreaState extends State<TableArea>{
             DataCell(Text("Alpha")),
             DataCell(Text("354")),
           ]),
-
-
         ],
       );
 

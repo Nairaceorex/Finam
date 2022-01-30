@@ -25,6 +25,13 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Finam"),
+        actions: <Widget>[
+          IconButton(
+              onPressed: (){},
+              icon: Icon(
+                Icons.exit_to_app,
+              ))
+        ],
       ),
       body:  this.getBody(),
       bottomNavigationBar: CustomBottomMenu(

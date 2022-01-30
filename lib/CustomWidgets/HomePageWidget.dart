@@ -17,11 +17,14 @@ class HomePageWidget extends StatefulWidget {
 enum OperationList { plus, minus }
 class HomePageWidgetState extends State<HomePageWidget> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _accountController = TextEditingController();
+  String? _account;
   //GenderList? _gender = GenderList.male;
   OperationList? _operation;
   @override
   Widget build(BuildContext context) {
     final user = UserPref.myUser;
+
     return Scaffold(
       body: Center(
         child: ListView(
@@ -38,9 +41,15 @@ class HomePageWidgetState extends State<HomePageWidget> {
       )
     );
   }
+  void _buttonAction(){
+    _account = _accountController.text;
+    _accountController.clear();
+
+
+  }
 
   Widget buildUpgradeButton() => ButtonWidget(
-    text: 'Edit profile',
+    text: 'Добавить счёт',
     onClicked: () {
       _showFullModal(context);
     },
@@ -57,13 +66,11 @@ class HomePageWidgetState extends State<HomePageWidget> {
 
   Widget buildName(User user) => Column(
     children: [
-      Text(
-        user.name,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
+
       Text(
         user.login,
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+
       ),
       const SizedBox(height: 4),
       Text(
@@ -94,84 +101,99 @@ class HomePageWidgetState extends State<HomePageWidget> {
                   }
               ),
               title: Text(
-                "Modal",
+                "Добавить счёт",
                 style: TextStyle(color: Colors.white, fontFamily: 'Overpass', fontSize: 20),
               ),
-              elevation: 0.0
+              elevation: 0.0,
+
           ),
           backgroundColor: Colors.white.withOpacity(0.90),
           body: Center(
             child: ListView(
               children: [
-                Form(
-                    key: _formKey,
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Сумма', style: TextStyle(fontSize: 20.0),),
-                        new TextFormField(validator: (value){
-                          if (value!.isEmpty) return 'Пожалуйста введите число';
-                          String num = "[0-9]";
-                          RegExp regExp = new RegExp(num);
-                          if(regExp.hasMatch(value)) return null;
-                          return 'Используйте числа';
-                        }
-
-                        ),
-                        new SizedBox(height: 20.0),
-                        new Text('Операция', style: TextStyle(fontSize: 20.0),),
-                        RadioListTile<OperationList>(
-                          title: const Text('Прибавить'),
-                          value: OperationList.plus,
-                          groupValue: _operation,
-                          onChanged: (OperationList? value){
-                            setState(() {
-                              _operation = value;
-                            });
-                          },
-                        ),
-                        RadioListTile<OperationList>(
-                          title: const Text('Вычесть'),
-                          value: OperationList.minus,
-                          groupValue: _operation,
-                          onChanged: (OperationList? value){
-                            setState(() {
-                              _operation = value;
-                            });
-                          },
-                        ),
-                        new SizedBox(height: 20.0),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: DropButtonTerminal(),
-                        ),
-
-
-                        new SizedBox(height: 20.0),
-
-                        new ElevatedButton(onPressed: (){
-                          if(_formKey.currentState!.validate())
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Форма успешно заполнена'),
-                                  backgroundColor: Colors.green,
-                                )
-                            );
-                        },
-                          child: Text('Проверить'),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.pinkAccent, // background
-                            onPrimary: Colors.white, // foreground
-                          ),
-                        ),
-
-                      ],
-                    )
-                )
+                _form("Добавить",_buttonAction),
               ],
             ),
           )
         );
       },
+    );
+  }
+
+  Widget _form(String label, void func()){
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _input(Icon(Icons.account_balance_wallet),"Счёт", _accountController,false),
+            //child: Text("Email"),
+          ),
+
+
+          SizedBox(height: 20,),
+
+          Padding(
+            padding: EdgeInsets.only(
+                left: 20, right: 20
+            ),
+            child: Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              child: _button(label,func),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _input(Icon icon, String hint, TextEditingController controller, bool obscure){
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      child: TextField(
+        controller: controller,
+        obscureText: obscure,
+        style: TextStyle(fontSize: 20,color: Colors.pink),
+        decoration: InputDecoration(
+            hintStyle: TextStyle( fontSize: 20, color: Colors.pink),
+            hintText: hint,
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.pink, width: 3)
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.pinkAccent, width: 1)
+            ),
+            prefixIcon: Padding(
+              padding: EdgeInsets.only(left: 10, right: 30),
+              child: IconTheme(
+                data: IconThemeData(color: Colors.pinkAccent),
+                child: icon,
+              ),
+
+            )
+        ),
+      ),
+    );
+  }
+
+  Widget _button(String text, void func()){
+    return ElevatedButton(
+      onPressed: (){
+        // Переходим к новому маршруту
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Счёт успешно добавлен'),
+                backgroundColor: Colors.green,
+              )
+          );
+        //func();
+      },
+      child: Text(text),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.pinkAccent, // background
+        onPrimary: Colors.white, // foreground
+      ),
     );
   }
 

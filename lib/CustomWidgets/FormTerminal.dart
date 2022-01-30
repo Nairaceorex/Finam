@@ -69,12 +69,12 @@ class FormTerminalState extends State {
                     if(_formKey.currentState!.validate())
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Форма успешно заполнена'),
+                            content: Text('Операция успешно выполнена'),
                             backgroundColor: Colors.green,
                           )
                       );
                   },
-                    child: Text('Проверить'),
+                    child: Text('Выполнить'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.pinkAccent, // background
                       onPrimary: Colors.white, // foreground

@@ -2,6 +2,7 @@ import 'package:banking/CustomWidgets/CustomBottomMenu.dart';
 import 'package:banking/Pages/HomePage.dart';
 import 'package:banking/Pages/ReportPage.dart';
 import 'package:banking/Pages/TerminalPage.dart';
+import 'package:banking/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -27,7 +28,9 @@ class MyHomePageState extends State<MyHomePage> {
         title: Text("Finam"),
         actions: <Widget>[
           IconButton(
-              onPressed: (){},
+              onPressed: (){
+                AuthService().logOut();
+              },
               icon: Icon(
                 Icons.exit_to_app,
               ))

@@ -4,5 +4,3 @@ io/flutter/plugins/pathprovider/BuildConfig.java
  io.flutter.plugins.pathprovider.BuildConfig
 io/flutter/plugins/pathprovider/PathProviderPlugin.java
  io.flutter.plugins.pathprovider.PathProviderPlugin
- io.flutter.plugins.pathprovider.PathProviderPlugin$1
- io.flutter.plugins.pathprovider.PathProviderPlugin$UiThreadExecutor

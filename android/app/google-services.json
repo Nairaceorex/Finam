@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "826589397972",
+    "project_id": "finam-dev",
+    "storage_bucket": "finam-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826589397972:android:edf636ce19736819e4cc41",
+        "android_client_info": {
+          "package_name": "com.yellowshark.finam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826589397972-gnkbenv07aftk2sjorvb3ivsu3ekl9l8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX_iM3vCdftP_CNxdj-Sdm0GHg-gjHtCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826589397972-gnkbenv07aftk2sjorvb3ivsu3ekl9l8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

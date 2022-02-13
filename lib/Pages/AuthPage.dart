@@ -1,11 +1,16 @@
 import 'package:banking/CustomWidgets/HomeWidget.dart';
 import 'package:banking/Pages/HomePage.dart';
 import 'package:banking/Pages/LandingPage.dart';
+import 'package:banking/domain/users.dart';
+import 'package:banking/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthPage extends StatefulWidget{
   AuthPage({Key? key}) : super(key: key);
+
+
 
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -18,11 +23,14 @@ class _AuthPageState extends State<AuthPage>{
   String? _password;
   bool showLogin = true;
 
+  AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
 
     Widget _logo(){
       return Padding(
+
         padding: EdgeInsets.only(top:100),
         child: Container(
           child: Align(
@@ -118,14 +126,52 @@ class _AuthPageState extends State<AuthPage>{
       );
     }
 
-    void _buttonAction(){
+    void _loginButtonAction() async{
       _email = _emailController.text;
       _password = _passwordController.text;
 
-      _emailController.clear();
-      _passwordController.clear();
+      if (_email!.isEmpty || _password!.isEmpty) return;
+      
+      Users? user = await _authService.signWithEmailPassword(_email!.trim(), _password!.trim());
+      if(user == null){
+        Fluttertoast.showToast(
+            msg: "Неверный логин или пароль!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+      else{
+        _emailController.clear();
+        _passwordController.clear();
+      }
+    }
 
+    void _registerButtonAction() async{
+      _email = _emailController.text;
+      _password = _passwordController.text;
 
+      if (_email!.isEmpty || _password!.isEmpty) return;
+
+      Users? user = await _authService.registerWithEmailPassword(_email!.trim(), _password!.trim());
+      if(user == null){
+        Fluttertoast.showToast(
+            msg: "Регистрация не удалась",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+      else{
+        _emailController.clear();
+        _passwordController.clear();
+      }
     }
 
     return Scaffold(
@@ -136,7 +182,7 @@ class _AuthPageState extends State<AuthPage>{
           (
             showLogin ? Column(
               children: <Widget>[
-                _form("Login",_buttonAction),
+                _form("Login",_loginButtonAction),
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: GestureDetector(
@@ -154,7 +200,7 @@ class _AuthPageState extends State<AuthPage>{
             )
             : Column(
                 children: <Widget>[
-                  _form("Register",_buttonAction),
+                  _form("Register",_registerButtonAction),
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: GestureDetector(

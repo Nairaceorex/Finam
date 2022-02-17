@@ -7,7 +7,8 @@ class ReportPage extends StatefulWidget {
   @override
   ReportPageState createState() => ReportPageState();
 }
-class ReportPageState extends State<ReportPage>{
+
+class ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

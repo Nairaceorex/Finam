@@ -3,11 +3,14 @@ class Account{
   String? name;
   int? summary;
 
-  Account([this.uid,this.name, this.summary]);
-
-  Account.fromJson(String uid, Map<String, dynamic> data){
-    uid = uid;
-    name = data['name'];
-    summary = data['summary'];
+  Account({
+    this.uid,
+    this.name,
+    this.summary
+});
+  Account.fromMap(Map<String, dynamic> map){
+    uid = map['user_uid'];
+    name = map['name'];
+    summary = map['summary'];
   }
-}
+  }

@@ -9,8 +9,8 @@ class TableArea extends StatefulWidget{
 class TableAreaState extends State<TableArea>{
   final Stream<QuerySnapshot> account =
       FirebaseFirestore.instance.collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").snapshots();
-  Query<Map<String, dynamic>> _account = FirebaseFirestore.instance.collection('Account')
-      .where('${FirebaseAuth.instance.currentUser!.uid}');
+  //Query<Map<String, dynamic>> _account = FirebaseFirestore.instance.collection('Account')
+      //.where('${FirebaseAuth.instance.currentUser!.uid}');
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class TableAreaState extends State<TableArea>{
             }
             final data = snapshot.requireData;
 
-            int sIze = 1;
+            /*int sIze = 1;
             for(int i=0; i != data.size; i++){
               if(data.docs[i]['user_uid'] == FirebaseAuth.instance.currentUser!.uid){
                 sIze+=1;
@@ -36,7 +36,7 @@ class TableAreaState extends State<TableArea>{
               else{
                 continue;
               }
-            }
+            }*/
             return DataTable(
               columns: [
                 DataColumn(label: Text('Name')),
@@ -65,11 +65,25 @@ class TableAreaState extends State<TableArea>{
           ],
         )*/
     );
-
   }
-  DataRow buildList(data, i, snapshot) {
+  DataRow buildList(data, g, snapshot) {
     var docs = snapshot.data.docs;
-    final acc = docs[i].data()!;
+    final acc = docs[g].data()!;
+    /*List<String> wasd = <String>[];
+    for(int i=0; i < wasd.length; i++){
+      wasd.insert(i, acc['summary'].toString());
+
+    }*/
+    //print(wasd.runtimeType);
+    //print("${acc['name'].runtimeType}");
+    //wasd.clear();
+
+    //wasd.insert(wasd.length, acc['summary'].toString());
+    /*print(wasd.length);
+    print(wasd);*/
+    /*for(int i=0; i < wasd.length; i++){
+      print(wasd[i]);
+    }*/
     return DataRow(cells: [
 
       DataCell(Text(acc['name'])),

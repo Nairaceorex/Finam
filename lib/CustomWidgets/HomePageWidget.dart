@@ -1,4 +1,4 @@
-import 'package:banking/CustomWidgets/DropButtonTerminal.dart';
+import 'package:banking/CustomWidgets/DropButtonTerminalAcc.dart';
 import 'package:banking/CustomWidgets/EditButton.dart';
 import 'package:banking/CustomWidgets/TableArea.dart';
 import 'package:banking/CustomWidgets/TableReport.dart';

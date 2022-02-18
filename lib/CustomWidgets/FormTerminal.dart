@@ -1,4 +1,5 @@
-import 'package:banking/CustomWidgets/DropButtonTerminal.dart';
+import 'package:banking/CustomWidgets/DropButtonTerminalAcc.dart';
+import 'package:banking/CustomWidgets/DropButtonTerminalOper.dart';
 import 'package:flutter/material.dart';
 
 class FormTerminal extends StatefulWidget {
@@ -25,41 +26,28 @@ class FormTerminalState extends State {
               child: new Column(
                 children: <Widget>[
                   new Text('Сумма', style: TextStyle(fontSize: 20.0),),
-                  new TextFormField(validator: (value){
-                    if (value!.isEmpty) return 'Пожалуйста введите число';
-                    String num = "[0-9]";
-                    RegExp regExp = new RegExp(num);
-                    if(regExp.hasMatch(value)) return null;
-                    return 'Используйте числа';
+                  new TextFormField(
+                      validator: (value){
+                        if (value!.isEmpty) return 'Пожалуйста введите число';
+                        String num = "[0-9]";
+                        RegExp regExp = new RegExp(num);
+                        if(regExp.hasMatch(value)) return null;
+                        return 'Используйте числа';
                   }
 
                   ),
                   new SizedBox(height: 20.0),
                   new Text('Операция', style: TextStyle(fontSize: 20.0),),
-                  RadioListTile<OperationList>(
-                    title: const Text('Прибавить'),
-                    value: OperationList.plus,
-                    groupValue: _operation,
-                    onChanged: (OperationList? value){
-                      setState(() {
-                        _operation = value;
-                      });
-                    },
+
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DropButtonTerminalOper(),
                   ),
-                  RadioListTile<OperationList>(
-                    title: const Text('Вычесть'),
-                    value: OperationList.minus,
-                    groupValue: _operation,
-                    onChanged: (OperationList? value){
-                      setState(() {
-                        _operation = value;
-                      });
-                    },
-                  ),
+
                   new SizedBox(height: 20.0),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: DropButtonTerminal(),
+                    child: DropButtonTerminalAcc(),
                   ),
 
 

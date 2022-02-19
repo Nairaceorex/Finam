@@ -3,6 +3,7 @@ import 'package:banking/CustomWidgets/EditButton.dart';
 import 'package:banking/CustomWidgets/TableArea.dart';
 import 'package:banking/CustomWidgets/TableReport.dart';
 import 'package:banking/Models/User.dart';
+import 'package:banking/Pages/ReportPage.dart';
 import 'package:banking/Pages/formAddAccount.dart';
 import 'package:banking/domain/account.dart';
 import 'package:banking/domain/users.dart';
@@ -36,22 +37,22 @@ class HomePageWidgetState extends State<HomePageWidget> {
     CollectionReference _account = FirebaseFirestore.instance.collection('Account');
 
     return Scaffold(
-      body: Center(
-        child: ListView(
-          children: [
-            const SizedBox(height: 24),
-            //  buildName("joe"),
-            const SizedBox(height: 24),
-            Center(child: buildUpgradeButton()),
-            const SizedBox(height: 24),
-            buildArea(),
+        body: Center(
+          child: ListView(
+            children: [
+              const SizedBox(height: 24),
+              //  buildName("joe"),
+              const SizedBox(height: 24),
+              Center(child: buildUpgradeButton()),
+              const SizedBox(height: 24),
+              buildArea(),
 
-          ],
-        ),
-      )
+            ],
+          ),
+        )
     );
   }
- /* void _buttonAction() async{
+  /* void _buttonAction() async{
     _accountname = _accountnameController.text;
     _accountsummary = _accountsummaryController;
 
@@ -66,7 +67,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
   Widget buildUpgradeButton() => ButtonWidget(
     text: 'Добавить счёт',
     onClicked: () {
-      _showFullModal(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => _redAcc()));
     },
   );
 
@@ -79,7 +80,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
     ],
   );
 
- /* Widget buildName(User user) => Column(
+  /* Widget buildName(User user) => Column(
     children: [
 
       Text(
@@ -95,141 +96,9 @@ class HomePageWidgetState extends State<HomePageWidget> {
     ],
   );*/
 
-  _showFullModal(context) {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: false, // should dialog be dismissed when tapped outside
-      barrierLabel: "Modal", // label for barrier
-      transitionDuration: Duration(milliseconds: 500), // how long it takes to popup dialog after button click
-      pageBuilder: (_, __, ___) { // your widget implementation
-        return Scaffold(
-          appBar: AppBar(
-              //backgroundColor: Colors.white,
-              centerTitle: true,
-              leading: IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: Colors.white,
-                  ),
-                  onPressed: (){
-                    Navigator.pop(context);
-                  }
-              ),
-              title: Text(
-                "Добавить счёт",
-                style: TextStyle(color: Colors.white, fontFamily: 'Overpass', fontSize: 20),
-              ),
-              elevation: 0.0,
+  Widget _redAcc() {
+    return AccountForm();
 
-          ),
-          backgroundColor: Colors.white.withOpacity(0.90),
-          body: Center(
-            child: ListView(
-              children: [
-                //AccountForm()
-                //_form("Добавить",_buttonAction),
-                Form(
-                  key: _formKey,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 20, top: 10),
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            child: TextFormField(
-
-                              style: TextStyle(fontSize: 20,color: Colors.pink),
-                              decoration: InputDecoration(
-                                  hintStyle: TextStyle( fontSize: 20, color: Colors.pink),
-                                  hintText: "Acc",
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.pink, width: 3)
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.pinkAccent, width: 1)
-                                  ),
-                                  prefixIcon: Padding(
-                                    padding: EdgeInsets.only(left: 10, right: 30),
-                                    child: IconTheme(
-                                      data: IconThemeData(color: Colors.pinkAccent),
-                                      child: Icon(Icons.account_balance_wallet),
-                                    ),
-
-                                  )
-                              ),
-                              onChanged: (value){
-                                _accountname=value;
-                              },
-                              validator: (value){
-                                if (value == null || value.isEmpty){
-                                  return 'null';
-                                }
-                              },
-                            ),
-                          )//child: Text("Email"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 20, top: 10),
-                          child: Container(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            child: TextFormField(
-
-                              style: TextStyle(fontSize: 20,color: Colors.pink),
-                              decoration: InputDecoration(
-                                  hintStyle: TextStyle( fontSize: 20, color: Colors.pink),
-                                  hintText: "sum",
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.pink, width: 3)
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.pinkAccent, width: 1)
-                                  ),
-                                  prefixIcon: Padding(
-                                    padding: EdgeInsets.only(left: 10, right: 30),
-                                    child: IconTheme(
-                                      data: IconThemeData(color: Colors.pinkAccent),
-                                      child: Icon(Icons.account_balance_wallet),
-                                    ),
-
-                                  )
-                              ),
-                              onChanged: (value){
-                                _accountsummary=int.parse(value);
-                              },
-                              validator: (value){
-                                if (value == null || value.isEmpty){
-                                  return 'null';
-                                }
-                              },
-                            ),
-                          ),
-                          //child: Text("Email"),
-                        ),
-
-
-                        SizedBox(height: 20,),
-
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 20, right: 20
-                          ),
-                          child: Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: _button("Add",_accountname,_accountsummary),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        );
-      },
-    );
   }
 
   /*Widget _form(String label, void func()){
@@ -313,6 +182,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
           _account.add({'name': name, 'summary': sum, 'user_uid':FirebaseAuth.instance.currentUser!.uid });
 
         }
+        Navigator.pop(context);
       },
       child: Text(text),
       style: ElevatedButton.styleFrom(
@@ -322,5 +192,5 @@ class HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-  }
+}
 

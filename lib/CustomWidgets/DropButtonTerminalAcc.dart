@@ -15,21 +15,21 @@ class DropButtonTerminalAcc extends StatefulWidget {
 }
 
 class _DropButtonTerminalAccState extends State<DropButtonTerminalAcc> {
-  String? dropdownValue;
+  String? dropdownValueAcc;
+  var _acc;
 
-  Stream<QuerySnapshot> db =
+  Stream<QuerySnapshot> _accountDrop =
   FirebaseFirestore.instance.collection('Account')
       .where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
       .snapshots();
   String? title;
   List<String> arr = <String>[];
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-          stream: db,
+          stream: _accountDrop,
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -42,7 +42,7 @@ class _DropButtonTerminalAccState extends State<DropButtonTerminalAcc> {
             
             return DropdownButton<String>(
               hint: Text('Acc'),
-              value: dropdownValue,
+              value: dropdownValueAcc,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
               style: const TextStyle(color: Colors.deepPurple),
@@ -51,11 +51,14 @@ class _DropButtonTerminalAccState extends State<DropButtonTerminalAcc> {
                 color: Colors.deepPurpleAccent,
               ),
               onChanged: (String? newValue) {
+                _acc = newValue;
+
+                print(_acc);
                 setState(() {
-                  dropdownValue = newValue!;
+                  dropdownValueAcc = newValue!;
                 });
               },
-              items: getDocData(data, data.size, snapshot)
+              items: getDocDataAcc(data, data.size, snapshot)
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -67,7 +70,8 @@ class _DropButtonTerminalAccState extends State<DropButtonTerminalAcc> {
 
     );
   }
-  List<String> getDocData(data, g, snapshot) {
+
+  List<String> getDocDataAcc(data, g, snapshot) {
 
     var docs = snapshot.data.docs;
    /* var doc = docs[g-1];

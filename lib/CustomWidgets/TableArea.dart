@@ -8,9 +8,9 @@ class TableArea extends StatefulWidget{
 }
 class TableAreaState extends State<TableArea>{
   final Stream<QuerySnapshot> account =
-      FirebaseFirestore.instance.collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").snapshots();
+  FirebaseFirestore.instance.collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").snapshots();
   //Query<Map<String, dynamic>> _account = FirebaseFirestore.instance.collection('Account')
-      //.where('${FirebaseAuth.instance.currentUser!.uid}');
+  //.where('${FirebaseAuth.instance.currentUser!.uid}');
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +38,18 @@ class TableAreaState extends State<TableArea>{
               }
             }*/
             return DataTable(
-              columns: [
-                DataColumn(label: Text('Name')),
-                DataColumn(label: Text('Summary')),
-              ],
-              rows: List.generate(data.size, (index) =>
+                columns: [
+                  DataColumn(label: Text('Name')),
+                  DataColumn(label: Text('Summary')),
+                ],
+                rows: List.generate(data.size, (index) =>
 
-                  buildList(data, index,snapshot))
+                    buildList(data, index,snapshot))
             );
           }),
       /*DataTable(
           columns: [
             DataColumn(label: Text("Name")),
-
             DataColumn(label: Text("Sum")),
           ],
           rows: [
@@ -72,7 +71,6 @@ class TableAreaState extends State<TableArea>{
     /*List<String> wasd = <String>[];
     for(int i=0; i < wasd.length; i++){
       wasd.insert(i, acc['summary'].toString());
-
     }*/
     //print(wasd.runtimeType);
     //print("${acc['name'].runtimeType}");
@@ -92,10 +90,8 @@ class TableAreaState extends State<TableArea>{
     ]);
     /*if (acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid){
       return DataRow(cells: [
-
       DataCell(Text(acc['name'])),
       DataCell(Text("${acc['summary']}")),
-
     ]);
     }
     else{
@@ -117,7 +113,6 @@ class TableAreaState extends State<TableArea>{
         ]);*/
 
     /*return DataRow(cells: [
-
       DataCell(Text(
           acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
               ? acc['name']: null)
@@ -126,10 +121,8 @@ class TableAreaState extends State<TableArea>{
           acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
               ? "${acc['summary']}" : "")
       ),
-
     ]);*/
     /*return DataRow(cells: [
-
       DataCell(Text(
           acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
               ? acc['name']: "")
@@ -138,13 +131,10 @@ class TableAreaState extends State<TableArea>{
           acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
               ? "${acc['summary']}" : "")
       ),
-
     ]);*/
     /*return DataRow(cells: [
-
       DataCell(Text(data.docs[i]['name'])),
       DataCell(Text("${data.docs[i]['summary']}")),
-
     ]);*/
   }
 }

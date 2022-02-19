@@ -16,6 +16,7 @@ class DropButtonTerminalOper extends StatefulWidget {
 
 class _DropButtonTerminalOperState extends State<DropButtonTerminalOper> {
   String? dropdownValue;
+  var _oper;
 
   Stream<QuerySnapshot> db =
   FirebaseFirestore.instance.collection('Operation')
@@ -50,6 +51,8 @@ class _DropButtonTerminalOperState extends State<DropButtonTerminalOper> {
                 color: Colors.deepPurpleAccent,
               ),
               onChanged: (String? newValue) {
+                _oper = newValue;
+                print(_oper);
                 setState(() {
                   dropdownValue = newValue!;
                 });
@@ -63,7 +66,6 @@ class _DropButtonTerminalOperState extends State<DropButtonTerminalOper> {
               }).toList(),
             );
           }),
-
     );
   }
   List<String> getDocData(data, g, snapshot) {

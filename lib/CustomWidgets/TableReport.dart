@@ -38,10 +38,10 @@ class TableReportState extends State<TableReport>{
             }*/
             return DataTable(
                 columns: [
-                  DataColumn(label: Text("Date&Time")),
-                  DataColumn(label: Text("Operation")),
-                  DataColumn(label: Text("Sum")),
-                  DataColumn(label: Text("Account")),
+                  DataColumn(label: Text("Дата/Время")),
+                  DataColumn(label: Text("Операция")),
+                  DataColumn(label: Text("Сумма")),
+                  DataColumn(label: Text("Счёт")),
                 ],
                 rows: List.generate(data.size, (index) =>
 

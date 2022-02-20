@@ -39,8 +39,8 @@ class TableAreaState extends State<TableArea>{
             }*/
             return DataTable(
                 columns: [
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('Summary')),
+                  DataColumn(label: Text('Название')),
+                  DataColumn(label: Text('Сумма')),
                 ],
                 rows: List.generate(data.size, (index) =>
 

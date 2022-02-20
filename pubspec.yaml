@@ -8,8 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: ^1.2.0
-  sqljocky5: any
   path_provider: ^1.5.1
   cupertino_icons: ^1.0.2
   firebase_core: ^1.12.0

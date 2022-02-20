@@ -100,12 +100,12 @@ class _AuthPageState extends State<AuthPage>{
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(bottom: 20, top: 10),
-              child: _input(Icon(Icons.email),"EMAIL", _emailController,false),
+              child: _input(Icon(Icons.email),"Почта", _emailController,false),
               //child: Text("Email"),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20),
-              child: _input(Icon(Icons.lock),"PASSWORD", _passwordController,true),
+              child: _input(Icon(Icons.lock),"Пароль", _passwordController,true),
               //child: Text("Password"),
             ),
 
@@ -182,11 +182,11 @@ class _AuthPageState extends State<AuthPage>{
           (
             showLogin ? Column(
               children: <Widget>[
-                _form("Login",_loginButtonAction),
+                _form("Войти",_loginButtonAction),
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: GestureDetector(
-                    child: Text("Register", style: TextStyle(fontSize: 20, color: Colors.white),
+                    child: Text("Нет учетной записи? Зарегистрируйтесь!", style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     onTap:(){
                       setState((){
@@ -200,11 +200,11 @@ class _AuthPageState extends State<AuthPage>{
             )
             : Column(
                 children: <Widget>[
-                  _form("Register",_registerButtonAction),
+                  _form("Регистрация",_registerButtonAction),
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: GestureDetector(
-                      child: Text("Register?", style: TextStyle(fontSize: 20, color: Colors.white),
+                      child: Text("Есть учетная запись?", style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onTap:(){
                         setState((){

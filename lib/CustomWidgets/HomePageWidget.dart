@@ -2,13 +2,13 @@ import 'package:banking/CustomWidgets/DropButtonTerminalAcc.dart';
 import 'package:banking/CustomWidgets/EditButton.dart';
 import 'package:banking/CustomWidgets/TableArea.dart';
 import 'package:banking/CustomWidgets/TableReport.dart';
-import 'package:banking/Models/User.dart';
+//import 'package:banking/Models/User.dart';
 import 'package:banking/Pages/ReportPage.dart';
 import 'package:banking/Pages/formAddAccount.dart';
 import 'package:banking/domain/account.dart';
 import 'package:banking/domain/users.dart';
 import 'package:banking/services/database.dart';
-import 'package:banking/utils/UserPref.dart';
+//import 'package:banking/utils/UserPref.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
   Widget buildArea() => Column(
     children: [
 
-      Text('Area', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      Text('Счета', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
       TableArea()
     ],

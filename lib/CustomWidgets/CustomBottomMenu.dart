@@ -8,8 +8,6 @@ class CustomBottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //BottomNavigationBar is automatically set to type 'fixed'
-    // when there are three of less items
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: selectedIndex,
@@ -17,19 +15,17 @@ class CustomBottomMenu extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.contacts),
-          label: 'Home',
+          label: 'Главная',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_balance_wallet),
-          label: 'Terminal',
+          label: 'Терминал',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.analytics),
-          label: 'Report',
+          label: 'Отчет',
         )
       ],
-
     );
   }
-
 }

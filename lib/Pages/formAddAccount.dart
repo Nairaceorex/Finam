@@ -44,7 +44,7 @@ class AccountFormState extends State<AccountForm>{
                       },
                       validator: (value){
                         if (value == null || value.isEmpty){
-                          return "enter name";
+                          return "Название";
                         }
                       },
                     ),
@@ -58,7 +58,7 @@ class AccountFormState extends State<AccountForm>{
                       },
                       validator: (value){
                         if (value == null || value.isEmpty){
-                          return "enter sum";
+                          return "Сумма";
                         }
                       },
                     ),
@@ -77,14 +77,16 @@ class AccountFormState extends State<AccountForm>{
             account.add({
               'name': name,
               'summary': sum,
-              'user_uid':FirebaseAuth.instance.currentUser!.uid }).
+              'user_uid':FirebaseAuth.instance.currentUser!.uid,
+              'id_doc': account.doc().id,
+            }).
             then((value) => print("acc added")).
             catchError((error) => print("Error: $error"));
 
           }
           Navigator.pop(context);
         },
-        child: Text("Add"),
+        child: Text("Добавить"),
         style: ElevatedButton.styleFrom(
           primary: Colors.pinkAccent, // background
           onPrimary: Colors.white, // foreground

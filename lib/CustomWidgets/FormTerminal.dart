@@ -27,6 +27,9 @@ class FormTerminalState extends State {
   String? dropdownValueAcc;
   var _acc;
 
+  List<String> accId = <String>[];
+  var id = 0;
+
   Widget buildDporOper() => Container(
         child: StreamBuilder<QuerySnapshot>(
             stream: _operationDrop,
@@ -41,7 +44,7 @@ class FormTerminalState extends State {
               final data = snapshot.requireData;
 
               return DropdownButtonFormField<String>(
-                hint: Text('Oper'),
+                hint: Text('Операция'),
                 value: dropdownValueOper,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
@@ -59,7 +62,7 @@ class FormTerminalState extends State {
                 },
                 validator: (newValue){
                   if (newValue == null || newValue.isEmpty){
-                    return "Select operation";
+                    return "Операция";
                   }
                 },
                 items: getDocDataOper(data, data.size, snapshot)
@@ -110,9 +113,11 @@ class FormTerminalState extends State {
                 return Text('Loading');
               }
               final data = snapshot.requireData;
+              accId = getDocDataAccId(data, data.size, snapshot);
+
 
               return DropdownButtonFormField<String>(
-                hint: Text('Acc'),
+                hint: Text('Счёт'),
                 value: dropdownValueAcc,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
@@ -123,7 +128,9 @@ class FormTerminalState extends State {
                 ),*/
                 onChanged: (String? newValue) {
                   _acc = newValue;
-
+                 id = getDocDataAcc(data, data.size, snapshot).indexOf(_acc);
+                  print(id);
+                  print(accId[id]);
                   print(_acc);
                   setState(() {
                     dropdownValueAcc = newValue;
@@ -131,7 +138,7 @@ class FormTerminalState extends State {
                 },
                 validator: (newValue){
                   if (newValue == null || newValue.isEmpty){
-                    return "Select account";
+                    return "Счёт";
                   }
                 },
                 items: getDocDataAcc(data, data.size, snapshot)
@@ -156,6 +163,31 @@ class FormTerminalState extends State {
       var doc = docs[i];
       final acc = doc.data();
       wasd.insert(i, acc['name'].toString());
+      /*print(wasd[i]);
+      print(i);*/
+    }
+    return wasd;
+    //print(wasd);
+    /*Query<Map<String, dynamic>> _cat =
+    FirebaseFirestore.instance.collection('Account')
+        .where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}");
+    Query query = _cat.where("name", isEqualTo: "qwe");
+    QuerySnapshot querySnapshot = await query.get();
+    final _docData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return _docData[1];*/
+  }
+
+  List<String> getDocDataAccId(data, g, snapshot) {
+    var docs = snapshot.data.docs;
+    /* var doc = docs[g-1];
+    final acc = doc.data();*/
+
+    List<String> wasd = <String>[];
+
+    for (int i = 0; i < g; i++) {
+      var doc = docs[i];
+      final acc = doc.data();
+      wasd.insert(i, acc['doc_id'].toString());
       /*print(wasd[i]);
       print(i);*/
     }
@@ -205,12 +237,16 @@ class FormTerminalState extends State {
                           child: buildDporOper(),
                         ),
                         new SizedBox(height: 20.0),
+                        new Text(
+                          'Счёт',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: buildDporAcc(),
                         ),
                         new SizedBox(height: 20.0),
-                        _button("Add", _acc, _summary, _oper),
+                        _button("Выполнить", _acc, _summary, _oper),
                         /*ElevatedButton(onPressed: (){
                     if(_formKey.currentState!.validate())
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -237,9 +273,16 @@ class FormTerminalState extends State {
   Widget _button(String text, var name, var sum, var oper) {
     CollectionReference _history =
         FirebaseFirestore.instance.collection('History');
+    final Stream<QuerySnapshot> _account = FirebaseFirestore.instance
+        .collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+        .where("name", isEqualTo: "${name}")
+        .snapshots();
+
+    //final Stream<QuerySnapshot> _account1 = _account.where("name", isEqualTo: "${name}").snapshots();
+    //var querySnapshots = _account.get();
 
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         // Переходим к новому маршруту
         if (_formKey.currentState!.validate()) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -256,6 +299,7 @@ class FormTerminalState extends State {
             "date_time": Timestamp.now(),
             'user_uid': FirebaseAuth.instance.currentUser!.uid
           });
+          print(_account);
           //Navigator.push(context, MaterialPageRoute(builder: (context) => TableReport()));
         }
         //_formKey.currentState!.reset();

@@ -8,7 +8,6 @@ MERGED from C:\Users\ASUS\Desktop\Finam\android\app\src\main\AndroidManifest.xml
 MERGED from [:firebase_auth] C:\Users\ASUS\Desktop\Finam\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:cloud_firestore] C:\Users\ASUS\Desktop\Finam\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] C:\Users\ASUS\Desktop\Finam\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
-MERGED from [:sqflite] C:\Users\ASUS\Desktop\Finam\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:fluttertoast] C:\Users\ASUS\Desktop\Finam\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] C:\Users\ASUS\Desktop\Finam\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\cb85e813550ceb859d5d8655b705694f\jetified-firebase-auth-21.0.1\AndroidManifest.xml:17:1-83:12
@@ -156,8 +155,6 @@ MERGED from [:cloud_firestore] C:\Users\ASUS\Desktop\Finam\build\cloud_firestore
 MERGED from [:cloud_firestore] C:\Users\ASUS\Desktop\Finam\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] C:\Users\ASUS\Desktop\Finam\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] C:\Users\ASUS\Desktop\Finam\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Users\ASUS\Desktop\Finam\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Users\ASUS\Desktop\Finam\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] C:\Users\ASUS\Desktop\Finam\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] C:\Users\ASUS\Desktop\Finam\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\Users\ASUS\Desktop\Finam\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

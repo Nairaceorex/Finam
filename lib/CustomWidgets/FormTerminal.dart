@@ -248,10 +248,8 @@ class FormTerminalState extends State {
             print(res.id);
             print(res.data());
             int summ = res['summary'];
-            accs.doc('${res.id}')
-            .update({
-              'summary': summ - sum
-            });
+            if (oper == "Вычесть") accs.doc('${res.id}').update({'summary': summ - sum});
+            if (oper == "Прибавить") accs.doc('${res.id}').update({'summary': summ + sum});
           });
         }
       },

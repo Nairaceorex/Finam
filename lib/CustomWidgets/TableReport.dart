@@ -9,8 +9,9 @@ class TableReport extends StatefulWidget{
 }
 class TableReportState extends State<TableReport>{
   final Stream<QuerySnapshot> account =
-  FirebaseFirestore.instance.collection('History').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").snapshots();
-
+  FirebaseFirestore.instance.collection('History').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").orderBy("date_time", descending: true).snapshots();
+//.collection("History")
+// .orderBy("date_time", "asc")
   @override
   Widget build(BuildContext context) {
     return Container(

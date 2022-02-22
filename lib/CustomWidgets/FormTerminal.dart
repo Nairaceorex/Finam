@@ -1,6 +1,3 @@
-import 'package:banking/CustomWidgets/DropButtonTerminalAcc.dart';
-import 'package:banking/CustomWidgets/DropButtonTerminalOper.dart';
-import 'package:banking/CustomWidgets/TableReport.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +46,7 @@ class FormTerminalState extends State {
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
                 style: const TextStyle(color: Colors.deepPurple),
-                /*underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),*/
+
                 onChanged: (String? newValue) {
                   _oper = newValue;
                   print(_oper);
@@ -78,8 +72,7 @@ class FormTerminalState extends State {
 
   List<String> getDocDataOper(data, g, snapshot) {
     var docs = snapshot.data.docs;
-    /* var doc = docs[g-1];
-    final acc = doc.data();*/
+
 
     List<String> wasd = <String>[];
 
@@ -87,18 +80,10 @@ class FormTerminalState extends State {
       var doc = docs[i];
       final acc = doc.data();
       wasd.insert(i, acc['Type'].toString());
-      /*print(wasd[i]);
-      print(i);*/
+
     }
     return wasd;
-    //print(wasd);
-    /*Query<Map<String, dynamic>> _cat =
-    FirebaseFirestore.instance.collection('Account')
-        .where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}");
-    Query query = _cat.where("name", isEqualTo: "qwe");
-    QuerySnapshot querySnapshot = await query.get();
-    final _docData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return _docData[1];*/
+
   }
 
   Widget buildDporAcc() => Container(
@@ -122,10 +107,7 @@ class FormTerminalState extends State {
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
                 style: const TextStyle(color: Colors.deepPurple),
-                /*underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),*/
+
                 onChanged: (String? newValue) {
                   _acc = newValue;
                  id = getDocDataAcc(data, data.size, snapshot).indexOf(_acc);
@@ -154,8 +136,7 @@ class FormTerminalState extends State {
 
   List<String> getDocDataAcc(data, g, snapshot) {
     var docs = snapshot.data.docs;
-    /* var doc = docs[g-1];
-    final acc = doc.data();*/
+
 
     List<String> wasd = <String>[];
 
@@ -163,24 +144,15 @@ class FormTerminalState extends State {
       var doc = docs[i];
       final acc = doc.data();
       wasd.insert(i, acc['name'].toString());
-      /*print(wasd[i]);
-      print(i);*/
+
     }
     return wasd;
-    //print(wasd);
-    /*Query<Map<String, dynamic>> _cat =
-    FirebaseFirestore.instance.collection('Account')
-        .where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}");
-    Query query = _cat.where("name", isEqualTo: "qwe");
-    QuerySnapshot querySnapshot = await query.get();
-    final _docData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return _docData[1];*/
+
   }
 
   List<String> getDocDataAccId(data, g, snapshot) {
     var docs = snapshot.data.docs;
-    /* var doc = docs[g-1];
-    final acc = doc.data();*/
+
 
     List<String> wasd = <String>[];
 
@@ -188,18 +160,10 @@ class FormTerminalState extends State {
       var doc = docs[i];
       final acc = doc.data();
       wasd.insert(i, acc['doc_id'].toString());
-      /*print(wasd[i]);
-      print(i);*/
+
     }
     return wasd;
-    //print(wasd);
-    /*Query<Map<String, dynamic>> _cat =
-    FirebaseFirestore.instance.collection('Account')
-        .where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}");
-    Query query = _cat.where("name", isEqualTo: "qwe");
-    QuerySnapshot querySnapshot = await query.get();
-    final _docData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return _docData[1];*/
+
   }
 
   Widget build(BuildContext context) {
@@ -247,21 +211,7 @@ class FormTerminalState extends State {
                         ),
                         new SizedBox(height: 20.0),
                         _button("Выполнить", _acc, _summary, _oper),
-                        /*ElevatedButton(onPressed: (){
-                    if(_formKey.currentState!.validate())
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Операция успешно выполнена'),
-                            backgroundColor: Colors.green,
-                          )
-                      );
-                  },
-                    child: Text('Выполнить'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.pinkAccent, // background
-                      onPrimary: Colors.white, // foreground
-                    ),
-                  ),*/
+
                       ],
                     ))),
           ],
@@ -273,14 +223,6 @@ class FormTerminalState extends State {
   Widget _button(String text, var name, var sum, var oper) {
     CollectionReference _history =
         FirebaseFirestore.instance.collection('History');
-    final Stream<QuerySnapshot> _account = FirebaseFirestore.instance
-        .collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
-        .where("name", isEqualTo: "${name}")
-        .snapshots();
-
-    //final Stream<QuerySnapshot> _account1 = _account.where("name", isEqualTo: "${name}").snapshots();
-    //var querySnapshots = _account.get();
-
     return ElevatedButton(
       onPressed: () async {
         // Переходим к новому маршруту
@@ -299,11 +241,19 @@ class FormTerminalState extends State {
             "date_time": Timestamp.now(),
             'user_uid': FirebaseAuth.instance.currentUser!.uid
           });
-          print(_account);
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => TableReport()));
+          CollectionReference accs = FirebaseFirestore.instance.collection('Account');
+          QuerySnapshot allRes = await accs.where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+              .where("name", isEqualTo: "${name}").get();
+          allRes.docs.forEach((DocumentSnapshot res) {
+            print(res.id);
+            print(res.data());
+            int summ = res['summary'];
+            accs.doc('${res.id}')
+            .update({
+              'summary': summ - sum
+            });
+          });
         }
-        //_formKey.currentState!.reset();
-
       },
       child: Text(text),
       style: ElevatedButton.styleFrom(
@@ -312,4 +262,6 @@ class FormTerminalState extends State {
       ),
     );
   }
+
+
 }

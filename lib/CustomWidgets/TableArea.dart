@@ -8,7 +8,7 @@ class TableArea extends StatefulWidget{
 }
 class TableAreaState extends State<TableArea>{
   final Stream<QuerySnapshot> account =
-  FirebaseFirestore.instance.collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").snapshots();
+  FirebaseFirestore.instance.collection('Account').where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}").orderBy("name", descending: false).snapshots();
   //Query<Map<String, dynamic>> _account = FirebaseFirestore.instance.collection('Account')
   //.where('${FirebaseAuth.instance.currentUser!.uid}');
 
@@ -47,94 +47,19 @@ class TableAreaState extends State<TableArea>{
                     buildList(data, index,snapshot))
             );
           }),
-      /*DataTable(
-          columns: [
-            DataColumn(label: Text("Name")),
-            DataColumn(label: Text("Sum")),
-          ],
-          rows: [
-            DataRow(cells: [
-              DataCell(Text("Tinkoff")),
-              DataCell(Text("10000")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text("Alpha")),
-              DataCell(Text("354")),
-            ]),
-          ],
-        )*/
+
     );
   }
   DataRow buildList(data, g, snapshot) {
     var docs = snapshot.data.docs;
     final acc = docs[g].data()!;
-    /*List<String> wasd = <String>[];
-    for(int i=0; i < wasd.length; i++){
-      wasd.insert(i, acc['summary'].toString());
-    }*/
-    //print(wasd.runtimeType);
-    //print("${acc['name'].runtimeType}");
-    //wasd.clear();
 
-    //wasd.insert(wasd.length, acc['summary'].toString());
-    /*print(wasd.length);
-    print(wasd);*/
-    /*for(int i=0; i < wasd.length; i++){
-      print(wasd[i]);
-    }*/
     return DataRow(cells: [
 
       DataCell(Text(acc['name'])),
       DataCell(Text("${acc['summary']}")),
 
     ]);
-    /*if (acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid){
-      return DataRow(cells: [
-      DataCell(Text(acc['name'])),
-      DataCell(Text("${acc['summary']}")),
-    ]);
-    }
-    else{
-      print('error');
-    }
-*/
-    /*return DataRow(
-        cells: [
-          DataCell(
-            Container(
-              width: 25,
-            )
-          ),
-          DataCell(
-              Container(
-                width: 25,
-              )
-          )
-        ]);*/
 
-    /*return DataRow(cells: [
-      DataCell(Text(
-          acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
-              ? acc['name']: null)
-      ),
-      DataCell(Text(
-          acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
-              ? "${acc['summary']}" : "")
-      ),
-    ]);*/
-    /*return DataRow(cells: [
-      DataCell(Text(
-          acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
-              ? acc['name']: "")
-      ),
-      DataCell(Text(
-          acc['user_uid'] == FirebaseAuth.instance.currentUser!.uid
-              ? "${acc['summary']}" : "")
-      ),
-    ]);*/
-    /*return DataRow(cells: [
-      DataCell(Text(data.docs[i]['name'])),
-      DataCell(Text("${data.docs[i]['summary']}")),
-    ]);*/
   }
 }

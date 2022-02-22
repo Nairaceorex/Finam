@@ -52,17 +52,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
         )
     );
   }
-  /* void _buttonAction() async{
-    _accountname = _accountnameController.text;
-    _accountsummary = _accountsummaryController;
 
-    await DatabaseService().addOrUpdateAccount(account);
-
-    _accountnameController.clear();
-    _accountsummaryController.clear();
-
-
-  }*/
 
   Widget buildUpgradeButton() => ButtonWidget(
     text: 'Добавить счёт',
@@ -100,69 +90,6 @@ class HomePageWidgetState extends State<HomePageWidget> {
     return AccountForm();
 
   }
-
-  /*Widget _form(String label, void func()){
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.account_balance_wallet),"Счёт", _accountnameController,false),
-            //child: Text("Email"),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.monetization_on),"Сумма", _accountsummaryController,false),
-            //child: Text("Email"),
-          ),
-
-
-          SizedBox(height: 20,),
-
-          Padding(
-            padding: EdgeInsets.only(
-                left: 20, right: 20
-            ),
-            child: Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width,
-              child: _button(label,func),
-            ),
-          )
-        ],
-      ),
-    );
-  }*/
-
-  /*Widget _input(Icon icon, String hint, TextEditingController controller, bool obscure){
-    return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
-      child: TextField(
-        controller: controller,
-        obscureText: obscure,
-        style: TextStyle(fontSize: 20,color: Colors.pink),
-        decoration: InputDecoration(
-            hintStyle: TextStyle( fontSize: 20, color: Colors.pink),
-            hintText: hint,
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.pink, width: 3)
-            ),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.pinkAccent, width: 1)
-            ),
-            prefixIcon: Padding(
-              padding: EdgeInsets.only(left: 10, right: 30),
-              child: IconTheme(
-                data: IconThemeData(color: Colors.pinkAccent),
-                child: icon,
-              ),
-
-            )
-        ),
-
-      ),
-    );
-  }*/
 
   Widget _button(String text, var name, var sum){
     CollectionReference _account = FirebaseFirestore.instance.collection('Account');

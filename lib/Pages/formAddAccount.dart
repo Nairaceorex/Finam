@@ -63,17 +63,25 @@ class AccountFormState extends State<AccountForm>{
                       },
                     ),
       ElevatedButton(
-        onPressed: (){
+        onPressed: () async {
+          CollectionReference accs = FirebaseFirestore.instance.collection('Account');
+          QuerySnapshot allRes = await accs.where("user_uid", isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+              .get();
+          List<String> Name = <String>[];
+          for (DocumentSnapshot res in allRes.docs){
+            Name.add(res['name']);
+          }
+          print(Name);
           // Переходим к новому маршруту
-          if(_fornKey.currentState!.validate()){
+          if(((_fornKey.currentState!.validate()) && ((Name.contains(name)) && (name != null)))==false){
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Счёт успешно добавлен'),
                   backgroundColor: Colors.green,
                 )
             );
-            print(name);
-            print(sum);
+            //print(name);
+            //print(sum);
             account.add({
               'name': name,
               'summary': sum,
@@ -82,9 +90,16 @@ class AccountFormState extends State<AccountForm>{
             }).
             then((value) => print("acc added")).
             catchError((error) => print("Error: $error"));
-
+            Navigator.pop(context);
           }
-          Navigator.pop(context);
+          if(((_fornKey.currentState!.validate()) && ((Name.contains(name)) && (name != null)))==true){
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Счёт уже существует'),
+                  backgroundColor: Colors.red,
+                )
+            );
+          }
         },
         child: Text("Добавить"),
         style: ElevatedButton.styleFrom(

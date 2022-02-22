@@ -176,49 +176,51 @@ class _AuthPageState extends State<AuthPage>{
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Column(
-        children: <Widget>[
-          _logo(),
-          (
-            showLogin ? Column(
-              children: <Widget>[
-                _form("Войти",_loginButtonAction),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: GestureDetector(
-                    child: Text("Нет учетной записи? Зарегистрируйтесь!", style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                    onTap:(){
-                      setState((){
-                        showLogin = false;
-
-                  });
-                  },
-                  ),
-                )
-              ]
-            )
-            : Column(
+      body: ListView(
+        children: [Column(
+          children: <Widget>[
+            _logo(),
+            (
+              showLogin ? Column(
                 children: <Widget>[
-                  _form("Регистрация",_registerButtonAction),
+                  _form("Войти",_loginButtonAction),
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: GestureDetector(
-                      child: Text("Есть учетная запись?", style: TextStyle(fontSize: 20, color: Colors.white),
+                      child: Text("Нет учетной записи?\nЗарегистрируйтесь!", style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onTap:(){
                         setState((){
-                          showLogin = true;
-                        });
-                      },
+                          showLogin = false;
+
+                    });
+                    },
                     ),
                   )
                 ]
-            )
-          ),
+              )
+              : Column(
+                  children: <Widget>[
+                    _form("Регистрация",_registerButtonAction),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: GestureDetector(
+                        child: Text("Есть учетная запись?", style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                        onTap:(){
+                          setState((){
+                            showLogin = true;
+                          });
+                        },
+                      ),
+                    )
+                  ]
+              )
+            ),
 
 
-        ],
+          ],
+        )],
       ),
     );
   }

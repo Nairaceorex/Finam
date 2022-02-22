@@ -19,11 +19,14 @@ class FormReportState extends State {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
 
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [TableReport()],
-        ),
+      child: Center(
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 24),
+              Center(child: _buildTableReport())
+            ],
+          ),
       ),
     );
 
